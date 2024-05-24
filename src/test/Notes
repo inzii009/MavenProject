@@ -1,0 +1,25 @@
+Class 01
+
+Framework:
+It provides an organized structure with benefits like a proper folder hierarchy, a single execution point,
+and separate places for different code.
+
+Maven: Used as a build management tool, it involves naming conventions for group id (company name) and
+artifact id (project name).
+
+Folder Structure:
+The main folder is for development code in Java,
+test folder is for testing code,
+resources are for the non-coding part.
+
+pom.xml: This configuration file is the backbone of the Maven project, used to add dependencies.
+
+Cucumber: Supports behavioral driven development (BDD) with test cases specified in Gherkin language (plain English),
+  using keywords like features, background, and scenario.
+
+  Given:pre condition ---Given user is navigated to HRMS application
+  When: Actions-- When user enters username and password
+  And: this can come with every other keyword-- And clicks on login button
+  Then: Expected output--result-- Then user should be see dashboard page
+  Feature--.feature-- to write scenario we use feature file
+  scenario
