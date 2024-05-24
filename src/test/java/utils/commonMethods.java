@@ -7,7 +7,7 @@ public class commonMethods {
     public static WebDriver driver;
     public static void openBrowserAndLaunchApplication() {
         ConfigReader.readProperties(Constants.PATH);//made universal using Constant class for any machine
-        ConfigReader
+
 
 
         driver.manage().window().maximize();
