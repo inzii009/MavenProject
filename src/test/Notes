@@ -1,10 +1,15 @@
-Class 01
+--Class 01--
 
 Framework:
-It provides an organized structure with benefits like a proper folder hierarchy, a single execution point,
-and separate places for different code.
+It provides an organized structure with benefits like,
+ proper folder hierarchy,
+ single execution point,
+ separate places for different code.
 
-Maven: Used as a build management tool, it involves naming conventions for group id (company name) and
+Maven:
+   It is a build management tool, which gives the organised structure of folder and provide pom.xml file.
+
+It involves naming conventions for group id (company name) and
 artifact id (project name).
 
 Folder Structure:
@@ -12,14 +17,100 @@ The main folder is for development code in Java,
 test folder is for testing code,
 resources are for the non-coding part.
 
-pom.xml: This configuration file is the backbone of the Maven project, used to add dependencies.
+pom.xml:"pom" stands for Project Object Model. "xml" stands for extensible markup language.
+ This configuration file is the backbone of Maven project, used to add dependencies of all tools
+ and libraries used in framework .
 
-Cucumber: Supports behavioral driven development (BDD) with test cases specified in Gherkin language (plain English),
+Cucumber: is a software testing framework which is used to test other software.
+It Supports behavioral driven development (BDD) and Gherkin language (simple plain English),
   using keywords like features, background, and scenario.
+  Cucumber is hybrid framework which supports BDD and DDT(Data Driven Testing).
 
-  Given:pre condition ---Given user is navigated to HRMS application
-  When: Actions-- When user enters username and password
-  And: this can come with every other keyword-- And clicks on login button
-  Then: Expected output--result-- Then user should be see dashboard page
+  Given: pre condition ---Given user is navigated to HRMS application
+  When: perform actions-- When user enters username and password
+  And: supporting tag, this can come with every other keyword-- And clicks on login button
+  Then: Expected output(result)-- Then user should see dashboard page
   Feature--.feature-- to write scenario we use feature file
   scenario
+
+
+  --Class 02--
+We have to add multiple dependencies from Maven Repository:
+ 1.Selenium (for java)
+ 2.Cucumber JVM junit
+ 3.Apache POI Common--(to read our data)
+ 4.Apache POI OOXML
+ 5.Apache Commons io
+ 6.WebDriverManager--- manage multiple browser versions and no compatibility issues.
+
+ What is junit?
+    it is a widely framework used to write and test unit test cases. It provides Assertions
+    ,annotations(@before, @after, @test etc).
+
+
+  Also add plugins
+   1.Cucumber for Java
+   2.gherkin
+
+ Login.feature file have steps declaration for clients to see, And LoginSteps will
+   contain implementation for the steps
+
+
+  --Class 03--
+  Why we use Cucumber tool rather TestNg etc?
+   To increase transparency/to reduce communication gap
+   It supports BDD(Gherkin) language--easy to understand for non technical people
+   focuses on end user
+ Feature file? used to write test scenario
+
+ In cucumber implementation of code matters but not the order.
+
+ Step definition: to implement the code for the steps written in feature file, we use step definitions
+ Runners Class: to configure the execution flow of our test cases
+   @runWith --from junit
+   @CucumberOptions--to provide configuration
+
+ Background: Here we have common steps among all the scenarios.
+              It is applicable only for one feature file.
+
+   --Class 04--
+
+       feature: tag we use to provide the path of all feature files
+           features = "src/test/resources/features/",
+
+       glue: gives path of the step definitions for feature files. (we just provide package name)
+           glue = "steps" ,
+
+       dry run: option is used to generate code for un-implemented steps
+       if set true,it scans all the gherkin steps whether they are implemented or not.It stops actual execution.
+       to execute script,it should be false
+           dryRun = false,
+
+       monochrome: It removes all the irrelevant information from the console
+           monochrome = true,
+
+       tags: will identify the scenario based on the tag we provide to the feature file
+           tags = "@smoke",
+
+       plugin = {"pretty","html:target/InzimamReport.html"} //to generate report and other purposes
+
+ Hooks: we use hooks to provide pre conditions and post conditions.
+    We have two hooks before and after.
+    we should provide hooks under the package where steps are available.
+    When we execute by runner class the execution order is --> Hooks->Background->Scenario->Hooks
+ Hooks vs Background:
+   Background is applicable to one feature file but Hooks is applicable to all the feature files.
+
+
+  Data can be passed through multiple ways:
+   1.file 2.parameters 3.DDT 4.External sources
+
+
+
+
+
+
+
+
+
+
