@@ -1,0 +1,193 @@
+--Class 01--
+
+Framework:
+It provides an organized structure with benefits like,
+ proper folder hierarchy,
+ single execution point,
+ separate places for different code.
+
+Maven:
+   It is a build management tool, which gives the organised structure of folder and provide pom.xml file.
+
+It involves naming conventions for group id (company name) and
+artifact id (project name).
+
+Folder Structure:
+The main folder is for development code in Java,
+test folder is for testing code,
+resources are for the non-coding part.
+
+pom.xml:"pom" stands for Project Object Model. "xml" stands for extensible markup language.
+ This configuration file is the backbone of Maven project, used to add dependencies of all tools
+ and libraries used in framework .
+
+Cucumber: is a software testing framework which is used to test other software.
+It Supports behavioral driven development (BDD) and Gherkin language (simple plain English),
+  using keywords like features, background, and scenario.
+  Cucumber is hybrid framework which supports BDD and DDT(Data Driven Testing).
+
+  Given: pre condition ---Given user is navigated to HRMS application
+  When: perform actions-- When user enters username and password
+  And: supporting tag, this can come with every other keyword-- And clicks on login button
+  Then: Expected output(result)-- Then user should see dashboard page
+  Feature--.feature-- to write scenario we use feature file
+  scenario
+
+
+  --Class 02--
+We have to add multiple dependencies from Maven Repository:
+ 1.Selenium (for java)
+ 2.Cucumber JVM junit
+ 3.Apache POI Common--(to read our data)
+ 4.Apache POI OOXML
+ 5.Apache Commons io
+ 6.WebDriverManager--- manage multiple browser versions and no compatibility issues.
+
+ What is junit?
+    it is a widely framework used to write and test unit test cases. It provides Assertions
+    ,annotations(@before, @after, @test etc).
+
+
+  Also add plugins
+   1.Cucumber for Java
+   2.gherkin
+
+ Login.feature file have steps declaration for clients to see, And LoginSteps will
+   contain implementation for the steps
+
+
+  --Class 03--
+  Why we use Cucumber tool rather TestNg etc?
+   To increase transparency/to reduce communication gap
+   It supports BDD(Gherkin) language--easy to understand for non technical people
+   focuses on end user
+ Feature file? used to write test scenario
+
+ In cucumber implementation of code matters but not the order.
+
+ Step definition: to implement the code for the steps written in feature file, we use step definitions
+ Runners Class: to configure the execution flow of our test cases
+   @runWith --from junit
+   @CucumberOptions--to provide configuration
+
+ Background: Here we have common steps among all the scenarios.
+              It is applicable only for one feature file.
+
+   --Class 04--
+
+       feature: tag we use to provide the path of all feature files
+           features = "src/test/resources/features/",
+
+       glue: gives path of the step definitions for feature files. (we just provide package name)
+           glue = "steps" ,
+
+       dry run: option is used to generate code for un-implemented steps
+       if set true,it scans all the gherkin steps whether they are implemented or not.It stops actual execution.
+       to execute script,it should be false
+           dryRun = false,
+
+       monochrome: It removes all the irrelevant information from the console
+           monochrome = true,
+
+       tags: will identify the scenario based on the tag we provide to the feature file
+           tags = "@smoke",
+
+       plugin = {"pretty","html:target/InzimamReport.html"} //to generate report and other purposes
+
+ Hooks: we use hooks to provide pre conditions and post conditions.
+    We have two hooks before and after.
+    we should provide hooks under the package where steps are available.
+    When we execute by runner class the execution order is --> Hooks->Background->Scenario->Hooks
+ Hooks vs Background:
+   Background is applicable to one feature file but Hooks is applicable to all the feature files.
+
+  Data can be passed through multiple ways:
+   1.Hard coded-->passing values in step definition
+   2.file -->from config.properties file(by call of getPropertyValue--reading properties based on the keys we provide; it
+   will patch the data by function, data from config.properties file username and password)
+   3.parameterized/DDT
+   4.External sources
+
+   3.parameterized/parameters: using examples table,Scenario Outline
+     Scenario Outline: feature file keyword, it links with Examples table.
+     it's used to do Data Driven Test by passing data in the form of keys via feature file in Examples table.
+
+   Q. Difference between examples table and data table?
+      Example table is linked with steps via keys but in Data table there is no key-link with steps.
+      Examples table also have Scenario Outline.
+      The major difference is we can use examples table for multiple steps.The keys and vales we define in example table
+      can be use for multiple steps but Data table is used for one particular step only.
+
+      In Data table we have two type of scenarios. When we implement the step it gives DataTable argument in step definition.
+      Inside this DataTable there is concept of keys and values ,which is from Maps in java.Every row returns a Map.
+      So, to store Map we use List.
+
+      In examples table hooks works before and after every scenario which means for adding one employee
+      browser launches and closes and does same for adding second employee and so on, but in DataTable
+      hooks works one time.Which mean browser launches one time and after adding all employees
+      it will close.
+
+   Class 05
+
+   Passing the data:
+    passing the data from feature file - scenario
+      (but it is limited to one step only/can add only one employee)
+
+    passing the data from @examples table from scenario outline to achieve ddt
+
+    Q. Difference between examples table and data table?
+       data table is applicable to just a single step
+       examples table is applicable to complete scenario
+
+  Passing Data from Excel File/external file:
+    We make ExcelReading class in utils package,which is universal for all Excel files for reading them.
+
+  Constants(utils package):If something is constant in our project we place it in Constants class.From there
+   we retrieve its value.
+
+
+    Class 06
+
+  Config.properties: is a file in which we provide username and password.
+  Config Reader: is the class in which we are reading the properties which are mentioned in config.properties file.
+
+  Data table works with only one step, but
+  examples table works with whole scenario.It helps you run the same scenario with different inputs to see how it behaves
+
+  A data table gives specific data for a single step, while
+  an examples table lets you try out different scenarios by filling in placeholders with various values.
+
+  Page Object Model Design:
+   We will create package name "Pages",after we will create classes of pages in application,
+     Organize package with locators,locate the elements and put them in their respective page class.We provide
+     constructors.
+
+     Data can be passed from 5 different ways:
+     1)from feature file
+     2)from Excel file
+     3)from config.properties file
+     4)
+     5)
+
+     Q What is difference between normal click and javascriptexecutor click?
+      The difference is of interaction. Normal selenium click checks for two things 1)WebElement is present
+      and 2)it is interactable or not in UI while JavaScriptExecutor click interacts with the code.
+
+
+   Class 07
+
+   Page Object Model Design pattern:
+   it allows you to create classes according to the pages available in the application.
+   We place all locators and functions related to this particular page in respective class
+
+   Class 08
+
+   Maven Sure file plugin
+
+   use common methods to write common functions in it such as
+   sendText
+   click
+
+   Two types of wait:
+   Implicit wait relies on time and explicit wait relies on condition.
+   In explicit we have WebDriverWait
